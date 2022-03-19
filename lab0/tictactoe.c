@@ -7,6 +7,10 @@
 #define BOARD_SIZE 3
 #define CELL_MAX (BOARD_SIZE * BOARD_SIZE - 1)
 
+
+char f_elem_row (int col, char board[BOARD_SIZE][BOARD_SIZE]);
+char f_elem_col (int row, char board[BOARD_SIZE][BOARD_SIZE]);
+
 void print_board(char board[BOARD_SIZE][BOARD_SIZE])
 {
     int cell = 0;
@@ -25,27 +29,37 @@ char get_winner(char board[BOARD_SIZE][BOARD_SIZE])
 {
     board = board;
     char winner = '-';
-    bool gano_ = true ;
     // IMPLEMENTAR
-    for(int col=0; col<BOARD_SIZE; col++){
-        for(int row=0; row<BOARD_SIZE; row++){
-            
-            gano_ = gano_ && f_elem_row(col,board) == board[col][row]; 
-            if(gano_){
-                winner = f_elem_row(col,board);
-                return winner;
+    for(int r=0; r<BOARD_SIZE; r++){
+            if (board[r][0] == board[r][1] && board[r][0] == board[r][2])
+            {
+                winner = board[r][0];
+                
             }
+    for (int c = 0; c < BOARD_SIZE; c++)
+        {
+        if (board[0][c] == board[1][c] && board[0][c] == board[2][c] )
+        {
+            winner = board[0][c];
+            
+            }
+            
         }
+
     }
+
+    if (board[0][0] == board[1][1] && board[0][0] == board[2][2] )
+    {
+        winner = board[0][0];
+    }else if (board[0][2]==board[1][1] && board[0][2]==board[2][0]){
+        winner=board[0][2];
+    }
+    
+    
     return winner;
 }
 
-char f_elem_row (int col, char board[BOARD_SIZE][BOARD_SIZE){
-    return board[col][0];
-}
-char f_elem_col (int row, char board[BOARD_SIZE][BOARD_SIZE){
-    return board[0][row];
-}
+
 
 bool has_free_cell(char board[BOARD_SIZE][BOARD_SIZE])
 {
