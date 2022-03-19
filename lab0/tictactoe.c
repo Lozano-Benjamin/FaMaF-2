@@ -36,17 +36,16 @@ char get_winner(char board[BOARD_SIZE][BOARD_SIZE])
                 winner = board[r][0];
                 
             }
-    for (int c = 0; c < BOARD_SIZE; c++)
-        {
-        if (board[0][c] == board[1][c] && board[0][c] == board[2][c] )
-        {
-            winner = board[0][c];
+            {
+            if (board[0][r] == board[1][r] && board[0][r] == board[2][r] )
+            {
+             winner = board[0][r];
+            
+                }
             
             }
-            
-        }
 
-    }
+        }
 
     if (board[0][0] == board[1][1] && board[0][0] == board[2][2] )
     {
