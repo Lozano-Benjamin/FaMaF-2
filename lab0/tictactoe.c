@@ -25,35 +25,28 @@ void print_board(char board[BOARD_SIZE][BOARD_SIZE])
     }
 }
 
-char get_winner(char board[BOARD_SIZE][BOARD_SIZE])
-{
+char get_winner(char board[BOARD_SIZE][BOARD_SIZE]){
     board = board;
     char winner = '-';
     // IMPLEMENTAR
     for(int r=0; r<BOARD_SIZE; r++){
-            if (board[r][0] == board[r][1] && board[r][0] == board[r][2])
-            {
+            //Revision por filas
+            if (board[r][0] == board[r][1] && board[r][0] == board[r][2] && board[r][0] != '-' ){
                 winner = board[r][0];
-                
             }
-            {
-            if (board[0][r] == board[1][r] && board[0][r] == board[2][r] )
-            {
+            //Revision por columnas
+            if (board[0][r] == board[1][r] && board[0][r] == board[2][r] && board[0][r] != '-'  ){
              winner = board[0][r];
-            
-                }
-            
             }
-
         }
 
-    if (board[0][0] == board[1][1] && board[0][0] == board[2][2] )
-    {
+    //Revision por diagonal izq a derecha
+    if (board[0][0] == board[1][1] && board[0][0] == board[2][2] && board [0][0] != '-'){
         winner = board[0][0];
-    }else if (board[0][2]==board[1][1] && board[0][2]==board[2][0]){
+        //Revision por diagonal de derecha a izquierda
+    }else if (board[0][2]==board[1][1] && board[0][2]==board[2][0] && board[0][2] != '-'){
         winner=board[0][2];
     }
-    
     
     return winner;
 }
@@ -65,6 +58,7 @@ bool has_free_cell(char board[BOARD_SIZE][BOARD_SIZE])
     board = board;
     bool bool_ = false;
     // IMPLEMENTAR
+    //Revisa si existe un elemento con '-'. Recorre toda la matriz y compara
     for(int i=0;i<BOARD_SIZE; i++ ){
         for(int j=0; j<BOARD_SIZE; j++){
             bool_ = bool_ || (board[i][j] == '-');
