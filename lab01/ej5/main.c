@@ -1,6 +1,6 @@
 /* First, the standard lib includes, alphabetically ordered */
 #include <assert.h>
-#include <stdbool.h>
+#include "mybool.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "array_helpers.h"
@@ -31,7 +31,7 @@ char *parse_filepath(int argc, char *argv[]) {
     char *result = NULL;
     // Program takes exactly two arguments
     // (the program's name itself and the input-filepath)
-    bool valid_args_count = (argc == 2);
+    mybool valid_args_count = (argc == 2);
 
     if (!valid_args_count) {
         print_help(argv[0]);
