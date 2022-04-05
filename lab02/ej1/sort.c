@@ -18,5 +18,7 @@ static void insert(int a[], unsigned int i) {
 void insertion_sort(int a[], unsigned int length) {
     for (unsigned int i = 1u; i < length; ++i) {
         insert(a, i);
+        assert(array_is_sorted(a,i));
     }
+    
 }
