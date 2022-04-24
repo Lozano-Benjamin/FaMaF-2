@@ -10,6 +10,8 @@
 
 /* Then, this project's includes, alphabetically ordered */
 #include "array_helpers.h"
+#include "weather.h"
+#include "weather_utils.h"
 
 /**
  * @brief print usage help
@@ -72,6 +74,11 @@ int main(int argc, char *argv[]) {
 
     /* show the ordered array in the screen */
     array_dump(array);
+
+    int temp_min = temp_min_hist(array);
+    printf("\nTemperatura minima historica: %d\n", temp_min);
+    mayor_temp_anual(array);
+    mes_mayor_prec(array);
 
     return (EXIT_SUCCESS);
 }
