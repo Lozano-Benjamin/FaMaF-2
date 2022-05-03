@@ -21,6 +21,7 @@ int main(void) {
     person_t m = {90, 'M'};
     int a[] = {0, 1, 2, 3};
 
+
     /* Completar aquí:
        Al finalizar la ejecución las variables deben tener los siguientes valores
        x = 9
@@ -33,6 +34,19 @@ int main(void) {
        - Se pueden declarar hasta 2 punteros.
        AYUDA: podes usar GDB para consultares valores de variables y la dirección de memoria donde estan alojadas.
     */
+
+    int *y = NULL;
+    y = &x;
+    *y = 9;
+
+    y = &a[1];
+    *y = 42;
+
+    person_t *p = NULL;
+    p = &m;
+    p->age = 100;
+    p->name_initial = 'F';
+
 
     printf("x = %d\n", x);
     printf("m = (%d, %c)\n", m.age, m.name_initial);
