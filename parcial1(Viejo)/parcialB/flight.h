@@ -5,9 +5,9 @@
 
 #ifndef _FLIGHT_H
 #define _FLIGHT_H
-#define EXPECTED_FLIGHT_FILE_FORMAT " %u %u %u "
+#define EXPECTED_FLIGHT_FILE_FORMAT /* COMPLETAR*/
 
-typedef enum { arrival, departure } flight_t;
+typedef enum { boxes, letters } item_t;
 
 #include <stdio.h>
 
@@ -15,21 +15,22 @@ typedef enum { arrival, departure } flight_t;
 typedef struct _flight
 {
   char code;
-  flight_t type;
+  item_t type;
   unsigned int hour;
-  unsigned int passengers_amount;
+  unsigned int items_amount;
 } Flight;
 
 /**
  * @brief reads flight data from file line
  * @details
  * Flight file line must contain:
- * <unsigned int> <unsigned int> <unsigned int>
+ * <unsigned int> <unsigned int>
  *
  * @param[in] file Opened file stream
  * @param[in] code The flight code
+ * @param[in] type The item-type (boxes / letters)
  * @return Flight structure which contain read information from file
  */
-Flight flight_from_file(FILE* file, char code);
+Flight flight_from_file(FILE* file, char code, item_t type);
 
 #endif //_FLIGHT_H

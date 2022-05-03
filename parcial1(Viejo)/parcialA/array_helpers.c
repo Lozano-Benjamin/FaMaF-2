@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 #include "array_helpers.h"
+#include "flight.h"
 
 /**
 * @brief returns true when reach last entry in flight table
@@ -31,8 +32,12 @@ void array_dump(LayoverTable a) {
 }
 
 unsigned int passengers_amount_in_airport (LayoverTable a, unsigned int h) {
-  /* COMPLETAR */
-  return 0;
+      unsigned int waiting_passangers = 0;
+      for (unsigned int i= 0; i<h; i++) {
+          waiting_passangers += a[h][0].passengers_amount - a[h][1].passengers_amount;
+      }
+      waiting_passangers += a[h][0].passengers_amount;
+  return waiting_passangers;
 }
 
 
@@ -46,16 +51,19 @@ void array_from_file(LayoverTable array, const char *filepath) {
   }
 
   char code;
-  int i=0;
-  while (/* COMPLETAR: lectura completa de todos los datos */) {
-    int res = fscanf(/* COMPLETAR: lectura de codigo de vuelo */);
+  // int i=0;
+  while (!feof(file)) {
+    int res = fscanf(file,"_%c_", &code);
     if (res != 1) {
-      fprintf(stderr, "Invalid file.\n");
+      fprintf(stderr, "Invalid file code.\n");
       exit(EXIT_FAILURE);
     }
     /* COMPLETAR: Generar y guardar ambos Flight en el array multidimensional */
-    Flight flight_arrival =   /* completar... */;
-    Flight flight_departure = /* completar... */;
+    Flight flight_arrival =   flight_from_file(file, code);
+    Flight flight_departure = flight_from_file(file, code);
+
+    array[flight_arrival.hour-1u][flight_arrival.type] = flight_arrival;
+    array[flight_departure.hour-1u][flight_departure.type] = flight_departure;
   }
   fclose(file);
 }
