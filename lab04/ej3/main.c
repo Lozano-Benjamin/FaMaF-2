@@ -33,22 +33,29 @@ char *parse_filepath(int argc, char *argv[]) {
 
 
 float average(list l) {
-/*
-    Needs implementation.
-*/
+    float resultado;
+    int suma = 0, tam = length(l);
+    list l0 = copy_list(l); //Copio la lista l en l0
+    while (!is_empty(l0)){ // Sumo los elementos de l0 y voy eliminando el primer elemento asi avanzo
+        suma += head(l0);
+        l0 = tail(l0);
+    };
+    resultado =  (float)suma / tam; 
+    l0 = destroy(l0); //Libero memoria
+    return resultado;
 }
 
 list array_to_list(int array[], unsigned int length) {
-    /* Initialize the list */
+    list l = empty();
     for (unsigned int i = 0u; i < length; ++i) {
-        /* Add element to the list  */
+       l = addl(l, array[i]);
     }
-    /* Return list */
+    return l;
 }
 
 int main(int argc, char *argv[]) {
     char *filepath = NULL;
-    FILE *file = NULL;
+    // FILE *file = NULL;
 
     /* parse the filepath given in command line arguments */
     filepath = parse_filepath(argc, argv);
