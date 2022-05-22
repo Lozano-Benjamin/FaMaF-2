@@ -30,6 +30,8 @@
         printf("%u\n", arr[i]);
     }
 
+    free(arr);
+
     //s = stack_destroy(s);
 
     return 0;

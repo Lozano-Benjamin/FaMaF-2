@@ -62,6 +62,8 @@ stack_elem *stack_to_array(stack s){
         tam--;
     }
 
+    free(p);
+
     return arr;
 
 }
