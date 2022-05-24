@@ -11,8 +11,6 @@ typedef struct _s_stack{
 
 stack stack_empty(){
     stack s = NULL;
-    s = malloc(sizeof(stack_Node));
-    s->size = 0;
     return s;
 }
 
@@ -21,7 +19,11 @@ stack stack_push(stack s, stack_elem e){
     p = malloc(sizeof(stack_Node));
     p->elem = e;
     p->next = s;
-    p->size = s->size + 1;
+    if(s != NULL){
+        p->size = s->size +1;
+    } else {
+        p->size = 1;
+    }
     s = p;
     
     return s;
@@ -37,7 +39,11 @@ stack stack_pop(stack s){
 }
 
 unsigned int stack_size(stack s){
-    return s->size;
+    int res = 0;
+    if (s != NULL){
+        res = s->size;
+    }
+    return res;
 }
 
 stack_elem stack_top(stack s){
@@ -49,14 +55,12 @@ bool stack_is_empty(stack s){
 }
 
 stack_elem *stack_to_array(stack s){
-    stack p = NULL;
-    stack_elem *arr = NULL;
-    unsigned int tam = (s->size)-1;
-    arr = malloc(sizeof(stack_elem) * (s->size) +1u );
-    p = malloc(sizeof(stack));
+    stack p = malloc(sizeof(stack));
+    stack_elem *arr = calloc(stack_size(s),sizeof(stack_elem));
+    size_t tam = (s->size)-1;
     p = s;
 
-    while (tam > 0) {
+    while (!stack_is_empty(p)) {
         arr[tam] = stack_top(p);
         p = p -> next;
         tam--;

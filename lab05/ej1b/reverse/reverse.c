@@ -63,6 +63,7 @@ int main() {
         s = stack_push(s, array[(length-1)-i]);
     }
 
+
   new_array = stack_to_array(s);
 
 

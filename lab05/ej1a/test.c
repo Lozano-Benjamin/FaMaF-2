@@ -29,7 +29,7 @@
 
     free(arr);
 
-    //s = stack_destroy(s);
+    s = stack_destroy(s);
 
     return 0;
  }

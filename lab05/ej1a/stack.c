@@ -22,12 +22,15 @@ stack stack_push(stack s, stack_elem e){
 }
 
 stack stack_pop(stack s){
-    stack *p; 
+    stack p = NULL; 
     p = malloc(sizeof(stack));
-    *p = s -> next;
-    free(s);
-    return *p;
+    p = s;
+    s = s -> next;
+    free(p);
+
+    return s;
 }
+
 
 unsigned int stack_size(stack s){
     unsigned int cont = 0;
@@ -52,7 +55,7 @@ stack_elem *stack_to_array(stack s){
     stack p = NULL;
     stack_elem *arr = NULL;
     unsigned int tam = stack_size(s) - 1;
-    arr = malloc(sizeof(stack_elem) * (stack_size(s) + 1u) );
+    arr = calloc(stack_size(s), (sizeof(stack_elem)));
     p = malloc(sizeof(stack));
     p = s;
 
@@ -68,11 +71,14 @@ stack_elem *stack_to_array(stack s){
 
 }
 
+
 stack stack_destroy(stack s){
-    stack p = NULL;
-    while (!stack_is_empty(s)) {
-        p = s -> next;
-        free(s);
+    stack q = NULL;
+    q = s;
+    while(s != NULL){
+        q = s;
+        s = s -> next;
+        free(q);
     }
-    return p;
+    return s;
 }
