@@ -7,11 +7,8 @@
     stack s = stack_empty();
 
     s = stack_push(s, 32);
-    s = stack_push(s, 45);
-    s = stack_push(s, 89);
-    s = stack_push(s, 50);
-    s = stack_push(s, 58);
     s = stack_pop(s);
+    s = stack_push(s, 89);
 
     unsigned int tam = stack_size(s);
 

@@ -6,7 +6,6 @@
 
 char *string_clone(const char *str) {
     char *clone = NULL;
-    int tam = strlen(str);
     clone = malloc( (strlen(str) +1u) * sizeof(char) );
     for (unsigned long int j = 0; j < strlen(str); j++) {
         clone[j]='\0';

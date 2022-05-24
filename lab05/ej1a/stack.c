@@ -52,7 +52,7 @@ stack_elem *stack_to_array(stack s){
     stack p = NULL;
     stack_elem *arr = NULL;
     unsigned int tam = stack_size(s) - 1;
-    arr = malloc(sizeof(stack) * (stack_size(s) + 1u) );
+    arr = malloc(sizeof(stack_elem) * (stack_size(s) + 1u) );
     p = malloc(sizeof(stack));
     p = s;
 
