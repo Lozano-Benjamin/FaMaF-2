@@ -2,20 +2,12 @@
 #include <stdio.h>
 
 #include <string.h>
-#include "strfuncs.h"
+
 
 char *string_clone(const char *str) {
     char *clone = NULL;
     clone = malloc( (strlen(str) +1u) * sizeof(char) );
-    for (unsigned long int j = 0; j < strlen(str); j++) {
-        clone[j]='\0';
-    }
-
-    int i = 0;
-    while (str[i] != '\0') {
-        clone[i] = str[i];
-        i++;
-    }
+    strcpy(clone, str);
     return clone;
 }
 

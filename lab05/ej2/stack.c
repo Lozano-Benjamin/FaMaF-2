@@ -9,38 +9,27 @@ typedef struct _s_stack {
 } stack_Node;
 
 stack stack_empty(){
-    stack s = NULL;
-    s = malloc(sizeof(stack));
-    s -> size = 0;
-    s->capacity = 1;
+    stack s = malloc(sizeof(stack_Node));
+    s->elems = malloc(sizeof(stack_elem));
+    s -> size = 0u;
+    s->capacity = 1u;
 
     return s;
 }
 
 stack stack_push(stack s, stack_elem e){
-    stack p = NULL; 
-    p = malloc(sizeof(stack));
-    p->elems = s->elems;
-    *p->elems = e;
-    p->size = s->size + 1;
-    p->capacity = s->capacity;
-
-    if (p->size == s->capacity) {
-        p = realloc(p->elems, p->size * 2 * sizeof(stack_elem));
+    s->size++;
+    if (s->size > s->capacity) {
+        s->capacity *= 2;
+        s->elems = realloc(s->elems, sizeof(stack_elem) * s->capacity);
     }
-
-    s = p;
+    s->elems[s->size-1] = e;
     return s;
 }
 
 stack stack_pop(stack s){
-    stack p = NULL;
-    p = malloc(sizeof(stack));
-    p->elems = &s->elems[1];
-    p->size = s->size - 1;
-    free(s);
-
-    return p;
+    s->size--;
+    return s;
     
 }
 
@@ -49,17 +38,25 @@ unsigned int stack_size(stack s){
 }
 
 stack_elem stack_top(stack s){
-    return *s->elems;
+    return s->elems[s->size-1];
 }
 
 bool stack_is_empty(stack s){
-    return s == NULL || s->size == 0;
+    return s->size == 0;
 }
 
 stack_elem *stack_to_array(stack s){
-    return s->elems;
+    stack_elem *new_array = calloc(s->size,sizeof(stack_elem));
+    for(unsigned int i = 0u; i< s->size; i++){
+        new_array[i] = s->elems[i];
+    }
+    return new_array;
 }
 
 stack stack_destroy(stack s){
+    free(s->elems);
+    free(s);
+    s = NULL;
     return s;
+
 }

@@ -27,25 +27,25 @@ void print_help(char *program_name) {
            program_name);
 }
 
-// char *parse_filepath(int argc, char *argv[]) {
-//     /* Parse the filepath given by command line argument. */
-//     char *result = NULL;
+char *parse_filepath(int argc, char *argv[]) {
+    /* Parse the filepath given by command line argument. */
+    char *result = NULL;
 
-//     if (argc < 2) {
-//         print_help(argv[0]);
-//         exit(EXIT_FAILURE);
-//     }
+    if (argc < 2) {
+        print_help(argv[0]);
+        exit(EXIT_FAILURE);
+    }
 
-//     result = argv[1];
+    result = argv[1];
 
-//     return (result);
-// }
+    return (result);
+}
 
-int main() {
+int main(int argc, char *argv[]) {
   char *filepath = NULL;
 
   /* parse the filepath given in command line arguments */
-  filepath = "input/example-easy.in";
+  filepath = parse_filepath(argc, argv);
   
 
   /* create an array of MAX_SIZE elements */
