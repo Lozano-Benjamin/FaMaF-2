@@ -19,7 +19,7 @@ stack stack_push(stack s, stack_elem e){
     p->elem = e;
     p->next = s;
     if(!stack_is_empty(s)){
-        p->size = s->size +1;
+        p->size = s->size + 1;
     } else {
         p->size = 1;
     }
@@ -60,7 +60,7 @@ stack_elem *stack_to_array(stack s){
     size_t tam = (s->size)-1;
 
     while (!stack_is_empty(p)) {
-        arr[tam] = stack_top(p);
+        arr[tam] = p->elem;
         p = p -> next;
         tam--;
     }
