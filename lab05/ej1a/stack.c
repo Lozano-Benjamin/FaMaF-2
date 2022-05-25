@@ -23,7 +23,6 @@ stack stack_push(stack s, stack_elem e){
 
 stack stack_pop(stack s){
     stack p = NULL; 
-    p = malloc(sizeof(stack));
     p = s;
     s = s -> next;
     free(p);
@@ -52,12 +51,10 @@ bool stack_is_empty(stack s){
 }
 
 stack_elem *stack_to_array(stack s){
-    stack p = NULL;
+    stack p = s;
     stack_elem *arr = NULL;
     unsigned int tam = stack_size(s) - 1;
     arr = calloc(stack_size(s), (sizeof(stack_elem)));
-    p = malloc(sizeof(stack));
-    p = s;
 
     while (!stack_is_empty(p)) {
         arr[tam] = stack_top(p);

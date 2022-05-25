@@ -15,11 +15,10 @@ stack stack_empty(){
 }
 
 stack stack_push(stack s, stack_elem e){
-    stack_Node *p; 
-    p = malloc(sizeof(stack_Node));
+    stack p = malloc(sizeof(stack_Node));
     p->elem = e;
     p->next = s;
-    if(s != NULL){
+    if(!stack_is_empty(s)){
         p->size = s->size +1;
     } else {
         p->size = 1;
@@ -30,12 +29,13 @@ stack stack_push(stack s, stack_elem e){
 }
 
 stack stack_pop(stack s){
-    stack p; 
-    p = malloc(sizeof(stack));
-    p = s -> next;
-    p->size = s -> size - 1;
-    free(s);
-    return p;
+    stack p = malloc(sizeof(stack)); 
+    s = s->next;
+    if(!stack_is_empty(s)){
+        s->size--;
+    }
+    free(p);
+    return s;
 }
 
 unsigned int stack_size(stack s){
@@ -55,10 +55,9 @@ bool stack_is_empty(stack s){
 }
 
 stack_elem *stack_to_array(stack s){
-    stack p = malloc(sizeof(stack));
+    stack p = s;
     stack_elem *arr = calloc(stack_size(s),sizeof(stack_elem));
     size_t tam = (s->size)-1;
-    p = s;
 
     while (!stack_is_empty(p)) {
         arr[tam] = stack_top(p);
@@ -75,9 +74,10 @@ stack_elem *stack_to_array(stack s){
 
 stack stack_destroy(stack s){
     stack p = NULL;
-    while (!stack_is_empty(s)) {
-        p = s -> next;
-        free(s);
+    while (s != NULL){
+        p = s;
+        s = s->next;
+        free(p);
     }
     return p;
 }
