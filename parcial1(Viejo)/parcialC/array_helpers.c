@@ -35,7 +35,7 @@ unsigned int extra_space_fee_cost (DeliveryTable a, unsigned int h) {
   unsigned int cant_letters = 0;
   unsigned int fee = 0;
 
-  for(unsigned int i = 0; i < h; i++){
+  for(unsigned int i = 0; i <= h; i++){
     cant_box += a[0][i].items_amount;
     cant_letters += a[1][i].items_amount;
   }
