@@ -1,13 +1,13 @@
+#include <stddef.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <stdbool.h>
 #include "queue.h"
 
 struct s_queue {
-    /*
-     * COMPLETAR para el apartado b)
-     */
+    size_t size;
     struct s_node *first;
+    struct s_node *last;
 };
 
 struct s_node {
@@ -39,6 +39,8 @@ queue queue_empty(void) {
     queue q=NULL;
     q = malloc(sizeof(struct s_queue));
     q->first = NULL;
+    q->last = NULL;
+    q->size = 0;
     assert(invrep(q) && queue_is_empty(q));
     return q;
 }
@@ -48,13 +50,12 @@ queue queue_enqueue(queue q, queue_elem e) {
     struct s_node *new_node = create_node(e);
     if (q->first==NULL) {
         q->first = new_node;
+        q->last = new_node;
     } else {
-        struct s_node *p = q->first;
-        while (p->next != NULL) {
-            p= p->next;
-        }
-        p->next = new_node;
+        q->last->next = new_node;
+        q ->last = new_node;
     }
+    q->size++;
     assert(invrep(q) && !queue_is_empty(q));
     return q;
 }
@@ -70,13 +71,7 @@ queue_elem queue_first(queue q) {
 }
 unsigned int queue_size(queue q) {
     assert(invrep(q));
-    unsigned int size=0;
-    struct s_node *p = q->first;
-    while (p->next != NULL) {
-        p = p->next;
-        size++;
-    }
-    return size;
+    return q->size;
 }
 
 queue queue_dequeue(queue q) {
