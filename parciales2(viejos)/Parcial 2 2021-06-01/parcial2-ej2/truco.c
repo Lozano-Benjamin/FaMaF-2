@@ -47,7 +47,7 @@ static int card_rank(valor num, palo suit) {
     int rank=0;
 
     if (4 <= num && num <= 12) {
-        rank = (num + 8) - 12; //4 a 12
+        rank = (num - 4) ; //4 a 12
     } else { 
         // 1 ~ 3
         rank = num + 8;

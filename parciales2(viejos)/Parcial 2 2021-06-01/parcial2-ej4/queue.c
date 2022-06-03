@@ -24,13 +24,15 @@ bool queue_is_empty(queue q) {
     return q == NULL;
 }
 
-queue_elem queue_first(queue q) {
-    queue_elem elem;
-    /*
-     * Completar
-     *
-     */
-    return elem;
+queue_elem queue_first(queue q)
+{
+  assert(q != NULL);
+  queue_elem elem;
+  /*
+   * Completar
+   */
+  elem = q->elem;
+  return elem;
 }
 unsigned int queue_size(queue q) {
     unsigned int size=0;
@@ -41,13 +43,18 @@ unsigned int queue_size(queue q) {
     return size;
 }
 
-queue queue_dequeue(queue q) {
-    /*
-     * Completar
-     *
-     */
-    return q;
-
+queue queue_dequeue(queue q)
+{
+  /*
+   * Completar
+   */
+  assert(q != NULL);
+  queue tmp;
+  tmp = q;
+  q = q->next;
+  free(tmp);
+  tmp = NULL;
+  return q;
 }
 
 queue queue_destroy(queue q) {

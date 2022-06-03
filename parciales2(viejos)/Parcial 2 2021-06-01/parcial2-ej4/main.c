@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "helpers/stack.h"
-#include "helpers/queue.h"
+#include "stack.h"
+#include "queue.h"
 
 static bool is_left_delimiter(char c) {
     return (c == '(' || c == '[' || c == '{' || c == '<');
@@ -32,50 +32,58 @@ static char match(char c) {
     return (m);
 }
 
-static void print_help(char *program_name) {
-    /* Print the usage help of this program. */
-    printf("Usage: %s <expression-to-check>\n\n"
-           "Check if the expression has balanced delimeters (parenthesis, brackets, braces and <>).\n",
-           program_name);
-}
+// static void print_help(char *program_name) {
+//     /* Print the usage help of this program. */
+//     printf("Usage: %s <expression-to-check>\n\n"
+//            "Check if the expression has balanced delimeters (parenthesis, brackets, braces and <>).\n",
+//            program_name);
+// }
 
-static char* parse_expression(int argc, char *argv[]) {
-    /* Parse the expression given by command line argument. */
-    char *result=NULL;
-    /* Program takes exactly one argument */
-    if (argc != 2) {
-        print_help(argv[0]);
-        exit(EXIT_FAILURE);
-    }
-    /* Use the first argument ass the expression */
-    result = argv[1];
-    /* return expression */
-    return result;
-}
+// static char* parse_expression(int argc, char *argv[]) {
+//     /* Parse the expression given by command line argument. */
+//     char *result=NULL;
+//     /* Program takes exactly one argument */
+//     if (argc != 2) {
+//         print_help(argv[0]);
+//         exit(EXIT_FAILURE);
+//     }
+//     /* Use the first argument ass the expression */
+//     result = argv[1];
+//     /* return expression */
+//     return result;
+// }
 
-int main(int argc, char *argv[]) {
+int main() { //int argc, char *argv[]
     stack s;
     bool balanced = true;
-    char *expression=NULL, *delimeters=NULL;
-    size_t i=0;
+    char *expression=NULL;
 
     // Parse arguments and get the expression to be analysed
-    expression=parse_expression(argc, argv);
+    expression= "{[(2 * 3) + 4] - (7* 8)} / 2";
+    //parse_expression(argc, argv);
 
-    queue delim_fifo; // Cola de delimitadores
+    queue delim_fifo = queue_empty(); // Cola de delimitadores
     /*
      * Completar: Crear una cola con todos los delimitadores de `expression`
      *
      */
+    for (size_t i = 0; i < strlen(expression); i++) {
+        if (is_delimeter(expression[i]))  {
+            delim_fifo = queue_enqueue(delim_fifo, expression[i]);
+        }
+    }
     s = stack_empty();
     while (!queue_is_empty(delim_fifo) && balanced) {
-        char delim;
+        char delim ;
+        delim =  queue_first(delim_fifo);
+        delim_fifo = queue_dequeue(delim_fifo);
         /*
          * Completar: en `delim` debe estar el primer delimitador
          * de la cola. Luego de procesarlo se lo debe quitar de
          * `delim_fifo`.
          *
          */
+        
         if (is_left_delimiter(delim)) {
             s = stack_push(s, match(delim));
         } else {
