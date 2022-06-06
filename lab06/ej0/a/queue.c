@@ -4,9 +4,6 @@
 #include "queue.h"
 
 struct s_queue {
-    /*
-     * COMPLETAR para el apartado b)
-     */
     struct s_node *first;
 };
 
