@@ -11,7 +11,9 @@ typedef struct _list {
 }lista;
 
 
-
+bool invrep(list l){
+    return l != NULL;
+}
 
 /* Constructors */
 list empty(void){
@@ -163,8 +165,9 @@ list copy_list(list l){
         while(p != NULL){
             q->elem = p->elem;
             q->next = malloc(sizeof(struct _list));
-            q->prev = k;
             q = q->next;
+            q->prev = k;
+            k = q;
             p = p->next;
         }
         q->next = NULL;

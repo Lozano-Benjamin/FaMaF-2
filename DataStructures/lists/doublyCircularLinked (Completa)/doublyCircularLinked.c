@@ -187,8 +187,9 @@ list copy_list(list l){
         while(p != NULL){
             q->elem = p->elem;
             q->next = malloc(sizeof(struct _list));
-            q->prev = k;
             q = q->next;
+            q->prev = k;
+            k = q;
             p = p->next;
         }
         l2->last = l->last;
@@ -196,6 +197,9 @@ list copy_list(list l){
     }
     return l2;
 }
+
+
+
 
 void destroy(list l){
     list p = l;
