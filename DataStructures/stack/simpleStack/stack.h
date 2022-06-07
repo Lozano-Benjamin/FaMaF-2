@@ -7,10 +7,12 @@
 
 #include <stdbool.h>
 
+// --- IMPLEMENTACIÓN PILA MEDIANTE LISTAS ENLAZADAS
+
 /**
 * @brief Stack type definition
 */
-typedef struct _s_stack *stack;
+typedef struct node *stack;
 
 /**
 * @brief Stack elements type definition
@@ -62,20 +64,12 @@ stack_elem stack_top(stack s);
 bool stack_is_empty(stack s);
 
 /**
-* @brief Creates an array with all the elements of the stack
-* @param s A stack
-* @return An array containing all the elements of the stack. The stack top element
-* becomes the rightmost element of the array. The size of the resulting
-* array is determined by 'stack_size(s)'
-*/
-stack_elem *stack_to_array(stack s);
-
-/**
 * @brief Destroys the stack
 * @param s A stack
 * @note All memory resources are freed
 */
 stack stack_destroy(stack s);
 
+void printStack(stack s);
 
 #endif

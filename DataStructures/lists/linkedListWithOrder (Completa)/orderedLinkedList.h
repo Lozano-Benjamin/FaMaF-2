@@ -15,9 +15,9 @@ list empty(void);
     Crea una lista vacía.
 */
 
-list addl(list l, list_elem e);
+list add(list l, list_elem e);
 /*
-    Agrega el elemento e al comienzo de la lista l. 
+    Agrega el elemento e a la lista. 
 */
 
 
@@ -39,10 +39,6 @@ list tail(list l);
     PRECONDICION: !is_empty(l)    
 */
 
-list addr(list l, list_elem e);
-/*
-    Agrega el elemento e al final de la lista l.  
-*/
 
 unsigned int length(list l);
 /*
@@ -80,6 +76,7 @@ void destroy(list l);
    Libera memoria en caso que sea necesario.
 */
 
+void printList(list l);
 
 
 

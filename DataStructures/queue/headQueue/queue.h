@@ -3,6 +3,8 @@
 
 #include <stdbool.h>
 
+// --- IMPLEMENTACIÓN COLA MEDIANTE LISTAS ENLAZADAS (CON HEADER DEL SIZE y LAST)
+
 typedef struct s_queue * queue;
 
 typedef int queue_elem;
@@ -67,5 +69,7 @@ queue queue_destroy(queue q);
  * POS: {q == NULL}
  *
  */
+
+void printQueue(queue q);
 
 #endif

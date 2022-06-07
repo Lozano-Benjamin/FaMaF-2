@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <link.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,36 +13,17 @@ struct _list{
 list empty(void){
     return NULL;
 }
-/*
- * Creates an empty list
- */
 
-list addl(list l, list_elem e){
-    list p = NULL;
-    p = malloc(sizeof(struct _list));
-    p->elem = e;
-    p->next = l;
-    l = p;
-    return l;
-}
-/*
- * Adds an element at the beginning of the list
- */
 
 bool is_empty(list l){
     return l == NULL;
 }
-/*
- * Returns true if the list is empty
- */
+
 
 list_elem head(list l){
     return l->elem;
 }
-/*
- * Returns the head of the list
- * PRE: {!is_empty(list l)}
- */
+
 
 list tail(list l){
     list p = l;
@@ -49,33 +31,31 @@ list tail(list l){
     free(p);
     return l;
 }
-/*
- * Returns the tail of the list
- * PRE: {!is_empty(list l)}
- */
 
-list addr(list l, list_elem e){
-    if (!is_empty(l)){
-        list p = l;
-        while (p->next != NULL){
-            p = p->next;
-        }
-        //p = ultimo actual
-        p->next = malloc(sizeof(struct _list));
+
+list add(list l, list_elem e){
+    list new = NULL;
+    new = malloc(sizeof(struct _list));
+    new->elem = e;
+    new->next = NULL;
+    list p = l, prev = NULL;
+    while (p != NULL && p->elem <= new->elem) {
+        prev = p;
         p = p->next;
-        p->elem = e;
-        p->next = NULL;
-    }else {
-        l = malloc(sizeof(struct _list));
-        l->elem = e;
-        l->next = NULL;
+    }
+    if (is_empty(prev)) {
+        l = new;
+        new->next = p;
+    }else{
+        prev->next = new;
+        new->next = p;
     }
     return l;
-    
 }
-/*
- * Adds an element at the end of the list
- */
+
+
+
+
 
 unsigned int length(list l){
     unsigned int length = 0u;
@@ -86,9 +66,7 @@ unsigned int length(list l){
     }
     return length;
 }
-/*
- * Returns the amount of elements in the list
- */
+
 
 list_elem index(list l, unsigned int n){
     list p = l;
@@ -99,10 +77,7 @@ list_elem index(list l, unsigned int n){
     //p = n-esimo elemento
     return p->elem;
 }
-/*
- * Returns the element in the n-position of the list
- * PRE: {length(list l) > n}
- */
+
 
 list take(list l, unsigned int n){
     if (n < length(l)){
@@ -121,10 +96,6 @@ list take(list l, unsigned int n){
     }
     return l;
 }
-/*
- * Returns the firt n-elements of the list 
- * PRE: {length(list l) > n}
- */
 
 list drop(list l, unsigned int n){
     if (n< length(l)){
@@ -139,9 +110,7 @@ list drop(list l, unsigned int n){
         return NULL;
     }
 }
-/*
- * Delets the first n-elements of the list
- */
+
 
 list copy_list(list l){
     list l2 = NULL;
@@ -159,31 +128,16 @@ list copy_list(list l){
     }
     return l2;
 }
-/*
- * Returns a copy of the given list
- */
+
 
 list concat(list l, list l1){
-    if(!is_empty(l1)){
-        list p = l;
-        while(p->next != NULL){
-            p = p->next;
-        }
-        // p = ultimo de la lista l
-        list q = l1;
-        while(q != NULL){
-            p->next = malloc(sizeof(struct _list));
-            p = p->next;
-            p->elem = q->elem;
-            q = q->next;
-        }
-        p->next = NULL;
+    list p = l1;
+    while (p != NULL) {
+        l1 = add(l, p->elem);
+        p = p->next;
     }
-    return l;
+    return l1;
 }
-/*
- * Adds at the end of l all the elements of l1 in the same order
- */
 
 void destroy(list l){
     list p = l;
@@ -193,6 +147,11 @@ void destroy(list l){
         p = l;
     }
 }
-/*
- * Frees memory if its necessary
- */
+
+
+void printList(list l){
+    while (l != NULL){
+    printf(" %d ", l->elem);
+    l = l->next;
+    }
+}
